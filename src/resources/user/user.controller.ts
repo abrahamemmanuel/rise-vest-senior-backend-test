@@ -115,12 +115,12 @@ class UserController implements Controller {
 		next: NextFunction,
 	): Promise<Response | void> => {
 		try {
-			const limit = <string>req.query['limit'] || '3'
-    	const topUsersWithLatestComment = await UserService.getTopUsersWithLatestComment(limit)
-    return res.status(200).json({ 
-			success: true,
-			data: topUsersWithLatestComment 
-		});
+			const limit = <string>req.query["limit"] || "3";
+			const topUsersWithLatestComment = await UserService.getTopUsersWithLatestComment(limit);
+			return res.status(200).json({
+				success: true,
+				data: topUsersWithLatestComment,
+			});
 		} catch (error: any) {
 			next(new HttpException(400, error.message));
 		}

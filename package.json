@@ -72,8 +72,6 @@
 		"@/utils": "dist/utils",
 		"@/middleware": "dist/middleware",
 		"@/config": "dist/config",
-		"@/db": "dist/db",
-		"@/migrations": "dist/migrations",
-		"@/entities": "dist/entities"
+		"@/migrations": "dist/migrations"
 	}
 }
