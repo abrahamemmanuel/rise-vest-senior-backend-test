@@ -105,12 +105,9 @@ class UserController implements Controller {
 		try {
 			let id: string = req.params.id;
 			const posts: Post[] = await PostService.getUserPosts(id);
-			if (!posts)
-				return next(
-					new HttpException(404, `User with ${id} not found`),
-				);
 			return res.status(200).json({
 				success: true,
+				count: posts.length,
 				data: posts,
 			});
 		} catch (error: any) {
