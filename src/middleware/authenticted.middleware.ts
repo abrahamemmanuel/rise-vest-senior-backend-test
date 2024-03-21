@@ -11,7 +11,7 @@ async function authenticatedMiddleware(
 	next: NextFunction,
 ): Promise<Response | void> {
 	const bearer = req.headers.authorization;
-	
+
 	if (!bearer || !bearer.startsWith("Bearer ")) {
 		return next(new HttpException(401, "Unauthorised"));
 	}
