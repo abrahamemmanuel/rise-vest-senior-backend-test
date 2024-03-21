@@ -4,6 +4,10 @@ import HttpException from '@/utils/exceptions/http.exception';
 import Validator from '@/middleware/validation.middleware';
 import createCommentValidator from '@/resources/post/post.validation';
 import CommentService from '@/resources/comment/comment.service';
+import UserService from '@/resources/user/user.service';
+import PostService from '@/resources/post/post.service';
+import { User } from '@/resources/user/user.entity';
+import { Post } from '@/resources/post/post.entity';
 
 class PostController implements Controller {
 	public path = '/posts';
@@ -27,18 +31,23 @@ class PostController implements Controller {
 		next: NextFunction,
 	): Promise<Response | void> => {
 		try {
-			const {
-				post,
-				user,
-				body: { content },
-			} = req;
-
+			const content: string = req.body;
+			let postId: string = req.params.id;
+			const post = await PostService.getPostById(postId);
+			if (!post)
+				return next(
+					new HttpException(404, `Post with ${postId} not found`),
+				);
+			const user = post?.user;
 			const comment = await CommentService.createComment({
-				post,
-				user,
-				content,
+				user: user,
+				post: post,
+				content: content,
 			});
-			return res.status(200).json(comment);
+			return res.status(201).json({
+				success: true,
+				data: comment,
+			});
 		} catch (error: any) {
 			next(new HttpException(400, error.message));
 		}
