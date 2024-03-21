@@ -12,7 +12,6 @@ export class UserService {
 			throw new HttpException(400, "User with email already exists");
 		}
 		const user = await this.userRepository.create({ email: data.email, name: data.name }).save();
-
 		return user;
 	}
 

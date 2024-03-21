@@ -12,7 +12,6 @@ const Validator = {
 			const msg = errors.array().map((error) => error.msg);
 
 			if (errors.isEmpty()) return next();
-
 			return new HttpException(400, msg.join(", "));
 		};
 	},
