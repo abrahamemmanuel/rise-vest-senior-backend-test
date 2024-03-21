@@ -5,6 +5,7 @@ import Validator from "@/middleware/validation.middleware";
 import createCommentValidator from "@/resources/post/post.validation";
 import CommentService from "@/resources/comment/comment.service";
 import PostService from "@/resources/post/post.service";
+import UserService from "@/resources/user/user.service";
 import { User } from "@/resources/user/user.entity";
 import { Post } from "@/resources/post/post.entity";
 
