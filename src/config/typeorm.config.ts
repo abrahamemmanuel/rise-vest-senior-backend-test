@@ -5,7 +5,7 @@ import { DataSource } from 'typeorm';
 import { User } from '@/resources/user/user.entity';
 import { Post } from '@/resources/post/post.entity';
 import { Comment } from '@/resources/comment/comment.entity';
-// import { CreateUserPostCommentTables1693058640060 } from './migrations/1693058640060-CreateUserPostCommentTables';
+import { CreateUserPostCommentTables1711013801973 } from '@/migrations/1711013801973-CreateUserPostCommentTables';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -21,7 +21,7 @@ const dataSource: DataSource = new DataSource({
 	synchronize: false,
 	logging: isDev,
 	migrationsRun: true,
-	// migrations: [CreateUserPostCommentTables1693058640060],
+	migrations: [CreateUserPostCommentTables1711013801973],
 	ssl: {
 		rejectUnauthorized: false,
 	},

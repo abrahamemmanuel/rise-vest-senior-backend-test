@@ -5,6 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "jest",
+		"clean": "rm -fr dist",
+		"lint:fix": "eslint . --ext .ts --fix",
 		"start": "typeorm:migration:run dist/index.js",
 		"dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
 		"build": "tsc",
@@ -70,6 +72,7 @@
 		"@/utils": "dist/utils",
 		"@/middleware": "dist/middleware",
 		"@/config": "dist/config",
-		"@/db": "dist/db"
+		"@/db": "dist/db",
+		"@/migrations": "dist/migrations"
 	}
 }

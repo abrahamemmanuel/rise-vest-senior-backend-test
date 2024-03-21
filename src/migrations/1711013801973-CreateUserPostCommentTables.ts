@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class CreateUserPostCommentTables1693058640060 implements MigrationInterface {
-    name = 'CreateUserPostCommentTables1693058640060'
+export class CreateUserPostCommentTables1711013801973 implements MigrationInterface {
+    name = 'CreateUserPostCommentTables1711013801973'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "Posts" ("id" SERIAL NOT NULL, "title" character varying(200) NOT NULL, "content" text, "created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(), "userId" integer, CONSTRAINT "PK_0f050d6d1112b2d07545b43f945" PRIMARY KEY ("id"))`);
@@ -14,6 +14,10 @@ export class CreateUserPostCommentTables1693058640060 implements MigrationInterf
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE "Comments" DROP CONSTRAINT "FK_aa80cd9ae4c341f0aeba2401b10"`);
+        await queryRunner.query(`ALTER TABLE "Comments" DROP CONSTRAINT "FK_68844d71da70caf0f0f4b0ed72d"`);
+        await queryRunner.query(`ALTER TABLE "Posts" DROP CONSTRAINT "FK_a8237eded7a9a311081b65ed0b8"`);
+        await queryRunner.query(`DROP INDEX "public"."IDX_users_email"`);
         await queryRunner.query(`DROP TABLE "Users"`);
         await queryRunner.query(`DROP TABLE "Comments"`);
         await queryRunner.query(`DROP TABLE "Posts"`);
