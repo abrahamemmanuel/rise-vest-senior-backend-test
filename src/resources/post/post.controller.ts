@@ -19,7 +19,6 @@ class PostController implements Controller {
 	private initialiseRoutes(): void {
 		this.router.post(
 			`${this.path}/:postId/comments`,
-			Validator.validate(createCommentValidator),
 			this.createComment,
 		);
 	}
@@ -31,7 +30,7 @@ class PostController implements Controller {
 	): Promise<Response | void> => {
 		try {
 			const content: string = req.body;
-			const postId: string = req.params.id;
+			const postId: string = req.params.postId;
 			const post: Post | null = await PostService.getPostById(postId);
 			if (!post) return next(new HttpException(404, `Post with ${postId} not found`));
 			const user: User | null = post?.user;
