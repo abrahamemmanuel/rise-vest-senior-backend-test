@@ -8,11 +8,11 @@ import {
 	OneToMany,
 	PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Comment } from '@/resources/comment/comment.entity';
-import { Post } from '@/resources/post/post.entity';
+import Comment from '@/resources/comment/comment.entity';
+import Post from '@/resources/post/post.entity';
 
 @Entity('Users')
-export class User extends BaseEntity {
+class User extends BaseEntity {
 	@PrimaryGeneratedColumn({
 		type: 'int',
 		primaryKeyConstraintName: 'IDX_users_id',
@@ -39,3 +39,5 @@ export class User extends BaseEntity {
 	})
 	createdAt!: Date;
 }
+
+export default User;

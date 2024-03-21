@@ -2,9 +2,9 @@ import 'reflect-metadata';
 import dotenv from 'dotenv';
 dotenv.config();
 import { DataSource } from 'typeorm';
-import { User } from '@/resources/user/user.entity';
-import { Post } from '@/resources/post/post.entity';
-import { Comment } from '@/resources/comment/comment.entity';
+import User from '@/resources/user/user.entity';
+import Post from '@/resources/post/post.entity';
+import Comment from '@/resources/comment/comment.entity';
 // import { CreateUserPostCommentTables1693058640060 } from './migrations/1693058640060-CreateUserPostCommentTables';
 
 const isDev = process.env.NODE_ENV === 'development';

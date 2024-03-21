@@ -11,7 +11,7 @@
 		"typeorm:migration:generate": "npm run typeorm -- migration:generate src/migrations/CreateTables",
 		"typeorm:migration:run": "npm run typeorm -- migration:run",
 		"typeorm:migration:revert": "npm run typeorm -- migration:revert",
-		"typeorm": "TS_NODE_BASEURL=./dist ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d ./src/typeorm-config.ts",
+		"typeorm": "TS_NODE_BASEURL=./dist ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d ./src/config/typeorm.config.ts",
 		"postinstall": "npm run build"
 	},
 	"keywords": [
