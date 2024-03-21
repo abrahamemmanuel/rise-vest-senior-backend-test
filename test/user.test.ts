@@ -1,5 +1,5 @@
-import { User } from "@/resources/user/user.entity";
-import { UserService } from "@/resources/user/user.service";
+import { User } from "../src/resources/user/user.entity";
+import { UserService } from "../src/resources/user/user.service";
 import { getMockRepository } from "./mocks/mock-repository";
 
 const mockUserRepository = getMockRepository<User>();

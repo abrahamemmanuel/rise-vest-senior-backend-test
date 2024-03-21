@@ -1,8 +1,8 @@
-import { User } from "@/resources/user/user.entity";
+import { User } from "../src/resources/user/user.entity";
 import { getMockRepository } from "./mocks/mock-repository";
-import { Post } from "@/resources/post/post.entity";
-import { CommentService } from "@/resources/comment/comment.service";
-import { Comment } from "@/resources/comment/comment.entity";
+import { Post } from "../src/resources/post/post.entity";
+import { CommentService } from "../src/resources/comment/comment.service";
+import { Comment } from "../src/resources/comment/comment.entity";
 
 const mockCommentRepository = getMockRepository<Comment>();
 describe("Test for Post service", () => {

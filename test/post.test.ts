@@ -1,7 +1,7 @@
-import { User } from "@/resources/user/user.entity";
+import { User } from "../src/resources/user/user.entity";
 import { getMockRepository } from "./mocks/mock-repository";
-import { Post } from "@/resources/post/post.entity";
-import { PostService } from "@/resources/post/post.service";
+import { Post } from "../src/resources/post/post.entity";
+import { PostService } from "../src/resources/post/post.service";
 
 const mockPostRepository = getMockRepository<Post>();
 describe("Test for Post service", () => {
