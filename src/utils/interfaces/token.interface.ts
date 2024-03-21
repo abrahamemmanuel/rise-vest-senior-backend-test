@@ -1,6 +1,6 @@
-import { Schema } from 'mongoose';
+import { User } from '@/resources/user/user.interface';
 
-interface Token extends Object {
+interface Token extends User {
 	id: string;
 	expiresIn: number;
 }

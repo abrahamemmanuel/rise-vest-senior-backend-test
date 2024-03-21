@@ -8,11 +8,11 @@ import {
 	OneToMany,
 	BaseEntity,
 } from 'typeorm';
-import User from '@/resources/user/user.entity';
-import Comment from '@/resources/comment/comment.entity';
+import { User } from '@/resources/user/user.entity';
+import { Comment } from '@/resources/comment/comment.entity';
 
 @Entity('Posts')
-class Post extends BaseEntity {
+export class Post extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
@@ -35,5 +35,3 @@ class Post extends BaseEntity {
 	})
 	createdAt!: Date;
 }
-
-export default Post;

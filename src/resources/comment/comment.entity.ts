@@ -7,11 +7,11 @@ import {
 	CreateDateColumn,
 	BaseEntity,
 } from 'typeorm';
-import Post from '@/resources/post/post.entity';
-import User from '@/resources/user/user.entity';
+import { Post } from '@/resources/post/post.entity';
+import { User } from '@/resources/user/user.entity';
 
 @Entity('Comments')
-class Comment extends BaseEntity {
+export class Comment extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id!: number;
 
@@ -31,5 +31,3 @@ class Comment extends BaseEntity {
 	})
 	createdAt!: Date;
 }
-
-export default Comment;
