@@ -1,10 +1,10 @@
-import express, { Application } from 'express';
-import compression from 'compression';
-import cors from 'cors';
-import morgan from 'morgan';
-import helmet from 'helmet';
-import Controller from '@/utils/interfaces/controller.interface';
-import ErrorMiddleware from '@/middleware/error.middleware';
+import express, { Application } from "express";
+import compression from "compression";
+import cors from "cors";
+import morgan from "morgan";
+import helmet from "helmet";
+import Controller from "@/utils/interfaces/controller.interface";
+import ErrorMiddleware from "@/middleware/error.middleware";
 
 class App {
 	public express: Application;
@@ -22,7 +22,7 @@ class App {
 	private initializeMiddleware(): void {
 		this.express.use(helmet());
 		this.express.use(cors());
-		this.express.use(morgan('dev'));
+		this.express.use(morgan("dev"));
 		this.express.use(express.json());
 		this.express.use(express.urlencoded({ extended: false }));
 		this.express.use(compression());
@@ -30,7 +30,7 @@ class App {
 
 	private initializeControllers(controllers: Controller[]): void {
 		controllers.forEach((controller) => {
-			this.express.use('/api', controller.router);
+			this.express.use("/api", controller.router);
 		});
 	}
 

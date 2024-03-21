@@ -1,18 +1,18 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import Controller from '@/utils/interfaces/controller.interface';
-import HttpException from '@/utils/exceptions/http.exception';
-import Validator from '@/middleware/validation.middleware';
-import createUserValidator from '@/resources/user/user.validation';
-import createPostValidator from '@/resources/post/post.validation';
-import { User } from '@/resources/user/user.entity';
-import { Post } from '@/resources/post/post.entity';
-import UserService from '@/resources/user/user.service';
-import PostService from '@/resources/post/post.service';
-import { CreateUserType } from '@/resources/user/user.interface';
-import { CreatePostType } from '@/resources/post/post.interface';
+import { Router, Request, Response, NextFunction } from "express";
+import Controller from "@/utils/interfaces/controller.interface";
+import HttpException from "@/utils/exceptions/http.exception";
+import Validator from "@/middleware/validation.middleware";
+import createUserValidator from "@/resources/user/user.validation";
+import createPostValidator from "@/resources/post/post.validation";
+import { User } from "@/resources/user/user.entity";
+import { Post } from "@/resources/post/post.entity";
+import UserService from "@/resources/user/user.service";
+import PostService from "@/resources/post/post.service";
+import { CreateUserType } from "@/resources/user/user.interface";
+import { CreatePostType } from "@/resources/post/post.interface";
 
 class UserController implements Controller {
-	public path = '/users';
+	public path = "/users";
 	public router = Router();
 
 	constructor() {
@@ -20,11 +20,7 @@ class UserController implements Controller {
 	}
 
 	private initialiseRoutes(): void {
-		this.router.post(
-			`${this.path}`,
-			Validator.validate(createUserValidator),
-			this.create,
-		);
+		this.router.post(`${this.path}`, Validator.validate(createUserValidator), this.create);
 
 		this.router.post(
 			`${this.path}/:id/posts`,
@@ -78,12 +74,9 @@ class UserController implements Controller {
 	): Promise<Response | void> => {
 		try {
 			const body = <CreatePostType>req.body;
-			let id: string = req.params.id;
+			const id: string = req.params.id;
 			const user: User | null = await UserService.getUserByIdOrFail(id);
-			if (!user)
-				return next(
-					new HttpException(404, `User with ${id} not found`),
-				);
+			if (!user) return next(new HttpException(404, `User with ${id} not found`));
 			const post: Post | null = await PostService.createPost({
 				...body,
 				user: user,
@@ -103,7 +96,7 @@ class UserController implements Controller {
 		next: NextFunction,
 	): Promise<Response | void> => {
 		try {
-			let id: string = req.params.id;
+			const id: string = req.params.id;
 			const posts: Post[] = await PostService.getUserPosts(id);
 			return res.status(200).json({
 				success: true,

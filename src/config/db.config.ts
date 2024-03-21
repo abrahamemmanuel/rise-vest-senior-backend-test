@@ -11,4 +11,4 @@ export const config = {
 	},
 };
 
-export const dialect = 'postgres';
+export const dialect = "postgres";

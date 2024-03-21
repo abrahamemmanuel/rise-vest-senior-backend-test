@@ -1,4 +1,4 @@
-import 'reflect-metadata';
+import "reflect-metadata";
 import {
 	Entity,
 	PrimaryGeneratedColumn,
@@ -6,11 +6,11 @@ import {
 	ManyToOne,
 	CreateDateColumn,
 	BaseEntity,
-} from 'typeorm';
-import { Post } from '@/resources/post/post.entity';
-import { User } from '@/resources/user/user.entity';
+} from "typeorm";
+import { Post } from "@/resources/post/post.entity";
+import { User } from "@/resources/user/user.entity";
 
-@Entity('Comments')
+@Entity("Comments")
 export class Comment extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id!: number;
@@ -21,13 +21,13 @@ export class Comment extends BaseEntity {
 	@ManyToOne(() => User, (user) => user.comments)
 	user!: User;
 
-	@Column('text', { nullable: true })
+	@Column("text", { nullable: true })
 	content?: string;
 
 	@CreateDateColumn({
-		type: 'timestamptz',
-		default: () => 'CURRENT_TIMESTAMP',
-		name: 'created_at',
+		type: "timestamptz",
+		default: () => "CURRENT_TIMESTAMP",
+		name: "created_at",
 	})
 	createdAt!: Date;
 }

@@ -1,16 +1,16 @@
-import 'reflect-metadata';
-import dotenv from 'dotenv';
+import "reflect-metadata";
+import dotenv from "dotenv";
 dotenv.config();
-import { DataSource } from 'typeorm';
-import { User } from '@/resources/user/user.entity';
-import { Post } from '@/resources/post/post.entity';
-import { Comment } from '@/resources/comment/comment.entity';
-import { CreateUserPostCommentTables1711013801973 } from '@/migrations/1711013801973-CreateUserPostCommentTables';
+import { DataSource } from "typeorm";
+import { User } from "@/resources/user/user.entity";
+import { Post } from "@/resources/post/post.entity";
+import { Comment } from "@/resources/comment/comment.entity";
+import { CreateUserPostCommentTables1711013801973 } from "@/migrations/1711013801973-CreateUserPostCommentTables";
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === "development";
 
 const dataSource: DataSource = new DataSource({
-	type: 'postgres',
+	type: "postgres",
 	url: process.env.DB_URL,
 	host: process.env.DB_HOST,
 	port: Number(process.env.DB_PORT) || 5432,

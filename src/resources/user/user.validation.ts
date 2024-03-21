@@ -1,7 +1,7 @@
-import { body } from 'express-validator';
+import { body } from "express-validator";
 
 const createUserValidator = [
-	body('name', 'Name of new user ')
+	body("name", "Name of new user ")
 		.isLength({
 			min: 3,
 			max: 200,
@@ -9,7 +9,7 @@ const createUserValidator = [
 		.exists()
 		.trim()
 		.escape(),
-	body('email', 'Email of user')
+	body("email", "Email of user")
 		.isLength({
 			min: 3,
 			max: 200,

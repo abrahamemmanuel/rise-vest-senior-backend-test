@@ -1,7 +1,7 @@
-import { Repository } from 'typeorm';
-import { Post } from '@/resources/post/post.entity';
-import { CreatePostType } from '@/resources/post/post.interface';
-import handleGetRepository from '@/config/db.connection.config';
+import { Repository } from "typeorm";
+import { Post } from "@/resources/post/post.entity";
+import { CreatePostType } from "@/resources/post/post.interface";
+import handleGetRepository from "@/config/db.connection.config";
 
 export class PostService {
 	constructor(private postRepository: Repository<Post>) {}

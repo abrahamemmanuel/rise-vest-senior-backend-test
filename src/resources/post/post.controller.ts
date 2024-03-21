@@ -1,15 +1,15 @@
-import { Router, Request, Response, NextFunction } from 'express';
-import Controller from '@/utils/interfaces/controller.interface';
-import HttpException from '@/utils/exceptions/http.exception';
-import Validator from '@/middleware/validation.middleware';
-import createCommentValidator from '@/resources/post/post.validation';
-import CommentService from '@/resources/comment/comment.service';
-import PostService from '@/resources/post/post.service';
-import { User } from '@/resources/user/user.entity';
-import { Post } from '@/resources/post/post.entity';
+import { Router, Request, Response, NextFunction } from "express";
+import Controller from "@/utils/interfaces/controller.interface";
+import HttpException from "@/utils/exceptions/http.exception";
+import Validator from "@/middleware/validation.middleware";
+import createCommentValidator from "@/resources/post/post.validation";
+import CommentService from "@/resources/comment/comment.service";
+import PostService from "@/resources/post/post.service";
+import { User } from "@/resources/user/user.entity";
+import { Post } from "@/resources/post/post.entity";
 
 class PostController implements Controller {
-	public path = '/posts';
+	public path = "/posts";
 	public router = Router();
 
 	constructor() {
@@ -31,12 +31,9 @@ class PostController implements Controller {
 	): Promise<Response | void> => {
 		try {
 			const content: string = req.body;
-			let postId: string = req.params.id;
+			const postId: string = req.params.id;
 			const post: Post | null = await PostService.getPostById(postId);
-			if (!post)
-				return next(
-					new HttpException(404, `Post with ${postId} not found`),
-				);
+			if (!post) return next(new HttpException(404, `Post with ${postId} not found`));
 			const user: User | null = post?.user;
 			const comment = await CommentService.createComment({
 				user: user,

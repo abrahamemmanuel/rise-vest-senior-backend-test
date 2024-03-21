@@ -1,12 +1,12 @@
-import { body } from 'express-validator';
+import { body } from "express-validator";
 
 export const createCommentValidator = [
-	body('content', 'comment content')
+	body("content", "comment content")
 		.isLength({
 			min: 0,
 			max: 2000,
 		})
-		.default('')
+		.default("")
 		.trim()
 		.escape(),
 ];

@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import HttpException from '@/utils/exceptions/http.exception';
+import { Request, Response, NextFunction } from "express";
+import HttpException from "@/utils/exceptions/http.exception";
 
 function errorMiddleware(
 	error: HttpException,
@@ -8,7 +8,7 @@ function errorMiddleware(
 	_next: NextFunction,
 ): void {
 	const status = error.status || 500;
-	const message = error.message || 'Internal server error';
+	const message = error.message || "Internal server error";
 	res.status(status).send({
 		status,
 		message,

@@ -1,19 +1,17 @@
-import { Repository } from 'typeorm';
-import { User } from '@/resources/user/user.entity';
-import { CreateUserType } from '@/resources/user/user.interface';
-import HttpException from '@/utils/exceptions/http.exception';
-import handleGetRepository from '@/config/db.connection.config';
+import { Repository } from "typeorm";
+import { User } from "@/resources/user/user.entity";
+import { CreateUserType } from "@/resources/user/user.interface";
+import HttpException from "@/utils/exceptions/http.exception";
+import handleGetRepository from "@/config/db.connection.config";
 
 export class UserService {
 	constructor(private userRepository: Repository<User>) {}
 
 	async createUser(data: CreateUserType): Promise<User> {
 		if (await this.doesUserExistByEmail(data.email)) {
-			throw new HttpException(400, 'User with email already exists');
+			throw new HttpException(400, "User with email already exists");
 		}
-		const user = await this.userRepository
-			.create({ email: data.email, name: data.name })
-			.save();
+		const user = await this.userRepository.create({ email: data.email, name: data.name }).save();
 
 		return user;
 	}
@@ -44,7 +42,7 @@ export class UserService {
 	async getUserByIdOrFail(userId: string): Promise<User> {
 		const user = await this.getUserById(userId);
 		if (!user) {
-			throw new HttpException(404, 'User not found');
+			throw new HttpException(404, "User not found");
 		}
 		return user;
 	}
