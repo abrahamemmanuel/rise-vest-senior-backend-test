@@ -21,15 +21,12 @@ class UserController implements Controller {
 
 	private initialiseRoutes(): void {
 		this.router.post(`${this.path}`, Validator.validate(createUserValidator), this.create);
-
 		this.router.post(
 			`${this.path}/:id/posts`,
 			Validator.validate(createPostValidator),
 			this.createPost,
 		);
-
 		this.router.get(`${this.path}`, this.getUsers);
-
 		this.router.get(`${this.path}/:id/posts`, this.getUserPosts);
 	}
 

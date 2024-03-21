@@ -1,14 +1,11 @@
-export const config = {
-	HOST: process.env.DB_HOST,
-	USER: process.env.DB_USERNAME,
-	PASSWORD: process.env.DB_PASSWORD,
-	DB: process.env.DB_DATABASE_NAME,
-	pool: {
-		max: 5,
-		min: 0,
-		acquire: 30000,
-		idle: 10000,
-	},
-};
+import { Pool, Client } from "pg";
 
-export const dialect = "postgres";
+const pool = new Pool({
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT) || 5432,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE_NAME,
+});
+
+export default pool;
