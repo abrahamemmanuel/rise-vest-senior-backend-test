@@ -8,8 +8,8 @@ import {
 	OneToMany,
 	BaseEntity,
 } from "typeorm";
-import { User } from "../user/user.entity";
-import { Comment } from "../comment/comment.entity";
+import { User } from "@/resources/user/user.entity";
+import { Comment } from "@/resources/comment/comment.entity";
 
 @Entity("Posts")
 export class Post extends BaseEntity {

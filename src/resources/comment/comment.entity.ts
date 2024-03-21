@@ -7,8 +7,8 @@ import {
 	CreateDateColumn,
 	BaseEntity,
 } from "typeorm";
-import { Post } from "../post/post.entity";
-import { User } from "../user/user.entity";
+import { Post } from "@/resources/post/post.entity";
+import { User } from "@/resources/user/user.entity";
 
 @Entity("Comments")
 export class Comment extends BaseEntity {
