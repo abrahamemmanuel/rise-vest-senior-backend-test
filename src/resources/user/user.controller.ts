@@ -4,7 +4,8 @@ import HttpException from '@/utils/exceptions/http.exception';
 import Validator from '@/middleware/validation.middleware';
 import createUserValidator from '@/resources/user/user.validation';
 import createPostValidator from '@/resources/post/post.validation';
-import { User } from '@/resources/user/user.interface';
+import { User } from '@/resources/user/user.entity';
+import { Post } from '@/resources/post/post.entity';
 import UserService from '@/resources/user/user.service';
 import PostService from '@/resources/post/post.service';
 import { CreateUserType } from '@/resources/user/user.interface';
@@ -43,7 +44,7 @@ class UserController implements Controller {
 	): Promise<Response | void> => {
 		try {
 			const body = <CreateUserType>req.body;
-			const user = await UserService.createUser(body);
+			const user: User = await UserService.createUser(body);
 			return res.status(201).json({
 				sucess: true,
 				data: user,
@@ -59,7 +60,7 @@ class UserController implements Controller {
 		next: NextFunction,
 	): Promise<Response | void> => {
 		try {
-			const users = await UserService.getAllUsers();
+			const users: User[] = await UserService.getAllUsers();
 			return res.status(200).json({
 				success: true,
 				count: users.length,
@@ -78,12 +79,12 @@ class UserController implements Controller {
 		try {
 			const body = <CreatePostType>req.body;
 			let id: string = req.params.id;
-			const user = await UserService.getUserByIdOrFail(id);
+			const user: User | null = await UserService.getUserByIdOrFail(id);
 			if (!user)
 				return next(
 					new HttpException(404, `User with ${id} not found`),
 				);
-			const post = await PostService.createPost({
+			const post: Post | null = await PostService.createPost({
 				...body,
 				user: user,
 			});
@@ -103,7 +104,7 @@ class UserController implements Controller {
 	): Promise<Response | void> => {
 		try {
 			let id: string = req.params.id;
-			const posts = await PostService.getUserPosts(id);
+			const posts: Post[] = await PostService.getUserPosts(id);
 			if (!posts)
 				return next(
 					new HttpException(404, `User with ${id} not found`),
