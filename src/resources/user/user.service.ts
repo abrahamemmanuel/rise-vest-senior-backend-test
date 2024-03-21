@@ -12,6 +12,7 @@ export class UserService {
 			throw new HttpException(400, "User with email already exists");
 		}
 		const user = await this.userRepository.create({ email: data.email, name: data.name }).save();
+
 		return user;
 	}
 
@@ -25,7 +26,11 @@ export class UserService {
 	}
 
 	async getAllUsers(): Promise<User[]> {
-		const users = await this.userRepository.find();
+		const users = await this.userRepository.find({
+			order: {
+				createdAt: "DESC",
+			},
+		});
 		return users;
 	}
 
@@ -46,52 +51,51 @@ export class UserService {
 		return user;
 	}
 	async getTopUsersWithLatestComment(limit: string) {
-		const topUsersWithLatestComment = await this.userRepository.query(
-			`	
-    SELECT f.*, p."content" post, u."name" FROM (SELECT 
-      top_users.*,
-      c."content" "comment", 
-      c."postId",
-      c.id "commentId"
-    FROM (
-      SELECT
-        "userId", 
-        COUNT("Posts"."userId") post_count
-      from 
-        "Posts" 
-      GROUP BY
-        "Posts"."userId" 
-      ORDER BY 
-        post_count 
-      DESC limit $1
-    ) top_users
-    LEFT JOIN
-      "Comments" c
-    ON 
-      top_users."userId" = c."userId"
-    WHERE
-      c.created_at = (
-        SELECT
-          MAX("Comments".created_at) AS max_date
-        FROM
-          "Comments"
-        WHERE
-          "Comments"."userId" = top_users."userId"
-      )) f
-      
-    LEFT JOIN
-      "Posts" p
-    ON
-      f."postId" = p.id
-    LEFT JOIN 
-      "Users" u 
-    ON 
-      f."userId" = u.id
-    ORDER BY
-      f.post_count DESC
-    `,
-			[limit],
-		);
+		const topUsersWithLatestComment = await this.userRepository.query(`
+			SELECT f.*, p."content" post, u."name" FROM (
+				SELECT 
+					top_users.*,
+					c."content" "comment", 
+					c."postId",
+					c.id "commentId"
+				FROM (
+					SELECT
+						"userId", 
+						COUNT("Posts"."userId") post_count
+					FROM 
+						"Posts" 
+					GROUP BY
+						"Posts"."userId" 
+					ORDER BY 
+						post_count 
+					DESC 
+					LIMIT $1
+				) top_users
+				LEFT JOIN
+					"Comments" c
+				ON 
+					top_users."userId" = c."userId"
+				WHERE
+					c.created_at = (
+						SELECT
+							MAX("Comments".created_at) AS max_date
+						FROM
+							"Comments"
+						WHERE
+							"Comments"."userId" = top_users."userId"
+					)
+			) f
+			LEFT JOIN
+				"Posts" p
+			ON
+				f."postId" = p.id
+			LEFT JOIN 
+				"Users" u 
+			ON 
+				f."userId" = u.id
+			ORDER BY
+				f.post_count DESC
+		`, [limit]);
 		return topUsersWithLatestComment;
 	}
 }

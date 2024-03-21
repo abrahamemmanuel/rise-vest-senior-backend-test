@@ -21,16 +21,17 @@ class UserController implements Controller {
 
 	private initialiseRoutes(): void {
 		this.router.post(`${this.path}`, Validator.validate(createUserValidator), this.create);
-
 		this.router.post(
 			`${this.path}/:id/posts`,
 			Validator.validate(createPostValidator),
 			this.createPost,
 		);
-
 		this.router.get(`${this.path}`, this.getUsers);
-
 		this.router.get(`${this.path}/:id/posts`, this.getUserPosts);
+		this.router.get(
+			`${this.path}/top-users-with-latest-comment`,
+			this.getTopUsersWithLatestComment,
+		);
 	}
 
 	private create = async (
@@ -105,6 +106,23 @@ class UserController implements Controller {
 			});
 		} catch (error: any) {
 			return next(new HttpException(400, error.message));
+		}
+	};
+
+	private getTopUsersWithLatestComment = async (
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<Response | void> => {
+		try {
+			const limit = <string>req.query['limit'] || '3'
+    	const topUsersWithLatestComment = await UserService.getTopUsersWithLatestComment(limit)
+    return res.status(200).json({ 
+			success: true,
+			data: topUsersWithLatestComment 
+		});
+		} catch (error: any) {
+			next(new HttpException(400, error.message));
 		}
 	};
 }
