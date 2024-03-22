@@ -1,7 +1,7 @@
 import { validationResult } from "express-validator";
 import { NextFunction, Request, Response } from "express";
 import { ContextRunner } from "express-validator/src/chain";
-import HttpException from "@/utils/exceptions/http.exception";
+import HttpException from "../utils/exceptions/http.exception";
 
 const Validator = {
 	validate: (validations: ContextRunner[]) => {
