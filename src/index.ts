@@ -8,7 +8,10 @@ import dataSource from "@/config/typeorm.config";
 
 validateEnv();
 
-const app = new App([new PostController(), new UserController()], Number(process.env.PORT));
+const app = new App(
+	[new PostController(), new UserController()],
+	Number(process.env.NODE_LOCAL_PORT),
+);
 (async () => {
 	dataSource
 		.initialize()
