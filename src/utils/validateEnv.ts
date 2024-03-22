@@ -5,7 +5,7 @@ function validateEnv(): void {
 		NODE_ENV: str({
 			choices: ["development", "production"],
 		}),
-		PORT: port({ default: 3000 }),
+		NODE_LOCAL_PORT: port({ default: 3000 }),
 		JWT_SECRET: str(),
 	});
 }
