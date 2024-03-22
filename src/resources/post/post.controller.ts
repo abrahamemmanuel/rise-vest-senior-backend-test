@@ -1,13 +1,10 @@
 import { Router, Request, Response, NextFunction } from "express";
-import Controller from "@/utils/interfaces/controller.interface";
-import HttpException from "@/utils/exceptions/http.exception";
-import Validator from "@/middleware/validation.middleware";
-import createCommentValidator from "@/resources/post/post.validation";
-import CommentService from "@/resources/comment/comment.service";
-import PostService from "@/resources/post/post.service";
-import UserService from "@/resources/user/user.service";
-import { User } from "@/resources/user/user.entity";
-import { Post } from "@/resources/post/post.entity";
+import Controller from "../../utils/interfaces/controller.interface";
+import HttpException from "../../utils/exceptions/http.exception";
+import CommentService from "../comment/comment.service";
+import PostService from "../post/post.service";
+import { User } from "../user/user.entity";
+import { Post } from "../post/post.entity";
 
 class PostController implements Controller {
 	public path = "/posts";
@@ -18,10 +15,7 @@ class PostController implements Controller {
 	}
 
 	private initialiseRoutes(): void {
-		this.router.post(
-			`${this.path}/:postId/comments`,
-			this.createComment,
-		);
+		this.router.post(`${this.path}/:postId/comments`, this.createComment);
 	}
 
 	private createComment = async (

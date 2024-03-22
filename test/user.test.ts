@@ -1,6 +1,7 @@
 import { User } from "../src/resources/user/user.entity";
 import { UserService } from "../src/resources/user/user.service";
 import { getMockRepository } from "./mocks/mock-repository";
+import HttpException from "../src/utils/exceptions/http.exception";
 
 const mockUserRepository = getMockRepository<User>();
 describe("Test for User service", () => {
@@ -36,7 +37,9 @@ describe("Test for User service", () => {
 			savedUser.email = newUser.email;
 
 			mockUserRepository.findOne?.mockResolvedValueOnce(savedUser);
-			expect(userService.createUser(newUser)).rejects.toEqual("User with email already exist");
+			expect(userService.createUser(newUser)).rejects.toEqual(
+				new HttpException(400, "User with email already exist"),
+			);
 
 			expect(mockUserRepository.create).not.toHaveBeenCalled();
 			expect(mockUserRepository.findOne).toHaveBeenCalledWith({
@@ -61,7 +64,7 @@ describe("Test for User service", () => {
 			expect(users).toEqual(mockUsers);
 			expect(mockUserRepository.find).toHaveBeenCalled();
 		});
-		it("getUserByIdOrError: should return a user if userId is valid", async () => {
+		it("getUserByIdOrFail: should return a user if userId is valid", async () => {
 			const savedUser = new User();
 			savedUser.id = 1;
 			savedUser.name = "testuser";
@@ -76,9 +79,11 @@ describe("Test for User service", () => {
 				where: { id: 1 },
 			});
 		});
-		it("getUserByIdOrError: should error if a user does not exist", async () => {
+		it("getUserByIdOrFail: should error if a user does not exist", async () => {
 			mockUserRepository.findOne?.mockResolvedValueOnce(null);
-			expect(userService.getUserByIdOrFail("1")).rejects.toEqual("User with id: 1 does not exist");
+			expect(userService.getUserByIdOrFail("1")).rejects.toEqual(
+				new HttpException(404, `User with id: 1 does not exist`),
+			);
 			expect(mockUserRepository.findOne).toHaveBeenCalledTimes(1);
 			expect(mockUserRepository.findOne).toHaveBeenCalledWith({
 				where: { id: 1 },

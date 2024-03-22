@@ -1,5 +1,5 @@
-import { Post } from "@/resources/post/post.entity";
-import { User } from "@/resources/user/user.entity";
+import { Post } from "../post/post.entity";
+import { User } from "../user/user.entity";
 
 export type CreateCommentType = {
 	user: User;

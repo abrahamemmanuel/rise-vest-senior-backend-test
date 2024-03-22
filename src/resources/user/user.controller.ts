@@ -1,15 +1,15 @@
 import { Router, Request, Response, NextFunction } from "express";
-import Controller from "@/utils/interfaces/controller.interface";
-import HttpException from "@/utils/exceptions/http.exception";
-import Validator from "@/middleware/validation.middleware";
-import createUserValidator from "@/resources/user/user.validation";
-import createPostValidator from "@/resources/post/post.validation";
-import { User } from "@/resources/user/user.entity";
-import { Post } from "@/resources/post/post.entity";
-import UserService from "@/resources/user/user.service";
-import PostService from "@/resources/post/post.service";
-import { CreateUserType } from "@/resources/user/user.interface";
-import { CreatePostType } from "@/resources/post/post.interface";
+import Controller from "../../utils/interfaces/controller.interface";
+import HttpException from "../../utils/exceptions/http.exception";
+import Validator from "../../middleware/validation.middleware";
+import createUserValidator from "../user/user.validation";
+import createPostValidator from "../post/post.validation";
+import { User } from "../user/user.entity";
+import { Post } from "../post/post.entity";
+import UserService from "../user/user.service";
+import PostService from "../post/post.service";
+import { CreateUserType } from "../user/user.interface";
+import { CreatePostType } from "../post/post.interface";
 
 class UserController implements Controller {
 	public path = "/users";

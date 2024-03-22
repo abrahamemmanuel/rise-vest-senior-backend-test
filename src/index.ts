@@ -1,10 +1,10 @@
 import "dotenv/config";
 import "module-alias/register";
-import validateEnv from "@/utils/validateEnv";
+import validateEnv from "./utils/validateEnv";
 import App from "./app";
-import PostController from "@/resources/post/post.controller";
-import UserController from "@/resources/user/user.controller";
-import dataSource from "@/config/typeorm.config";
+import PostController from "./resources/post/post.controller";
+import UserController from "./resources/user/user.controller";
+import dataSource from "./config/typeorm.config";
 
 validateEnv();
 

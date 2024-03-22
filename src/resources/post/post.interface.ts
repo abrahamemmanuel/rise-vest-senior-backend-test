@@ -1,4 +1,4 @@
-import { User } from "@/resources/user/user.entity";
+import { User } from "../user/user.entity";
 
 export type CreatePostType = {
 	title: string;

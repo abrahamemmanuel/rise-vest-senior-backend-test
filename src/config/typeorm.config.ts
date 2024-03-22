@@ -2,10 +2,10 @@ import "reflect-metadata";
 import dotenv from "dotenv";
 dotenv.config();
 import { DataSource } from "typeorm";
-import { User } from "@/resources/user/user.entity";
-import { Post } from "@/resources/post/post.entity";
-import { Comment } from "@/resources/comment/comment.entity";
-import { CreateUserPostCommentTables1711013801973 } from "@/migrations/1711013801973-CreateUserPostCommentTables";
+import { User } from "../resources/user/user.entity";
+import { Post } from "../resources/post/post.entity";
+import { Comment } from "../resources/comment/comment.entity";
+import { CreateUserPostCommentTables1711013801973 } from "../migrations/1711013801973-CreateUserPostCommentTables";
 
 const isDev = process.env.NODE_ENV === "development";
 
