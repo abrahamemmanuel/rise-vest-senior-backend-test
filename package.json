@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "rise vest technical assessment for senior backend engineer",
 	"main": "index.js",
+	"engines": {
+		"node": "18.14.0"
+	},
 	"scripts": {
 		"test": "jest",
 		"clean": "rm -fr dist",
