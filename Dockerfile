@@ -1,9 +1,23 @@
 FROM node:18.14.0
 
-WORKDIR /app
-COPY package.json package.json
-COPY package-lock.json package-lock.json
-COPY tsconfig.json tsconfig.json
-RUN npm ci
+# Create a directory for the app
+WORKDIR /app/src
+
+# Copy package.json and package-lock.json files
+COPY package*.json ./
+COPY tsconfig.json ./
+
+# Install app dependencies
+RUN npm install
+
+# Bundle app source
 COPY . .
-CMD npm start
+
+# Set the environment variable for running the application
+ENV NODE_ENV=production
+
+# Build the TypeScript code
+RUN npm run build
+
+# Start the application
+CMD ["npm", "run", "start"]
