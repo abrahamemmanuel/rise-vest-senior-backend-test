@@ -52,39 +52,49 @@ export class UserService {
 	}
 	async getTopUsersWithLatestComment(limit: string) {
 		const topUsersWithLatestComment = await this.userRepository.query(
-			`
-			SELECT 
-				u.id AS user_id,
-				u.name AS user_name,
-				p.title AS post_title,
-				c.content AS latest_comment
+			`	
+			SELECT f.*, p."content" post, u."name" FROM (SELECT 
+				top_users.*,
+				c."content" "comment", 
+				c."postId",
+				c.id "commentId"
 			FROM (
-					SELECT 
-							userId,
-							MAX(created_at) AS latest_comment_date
-					FROM 
-							Comments
-					GROUP BY 
-							userId
-			) AS latest_comments
-			INNER JOIN Users u ON latest_comments.userId = u.id
-			INNER JOIN Comments c ON latest_comments.userId = c.userId AND latest_comments.latest_comment_date = c.created_at
-			LEFT JOIN (
-					SELECT 
-							userId,
-							COUNT(*) AS post_count
-					FROM 
-							Posts
-					GROUP BY 
-							userId
-					ORDER BY 
-							post_count DESC
-					LIMIT $1
-			) AS top_users ON u.id = top_users.userId
-			LEFT JOIN Posts p ON u.id = p.userId
-			ORDER BY 
-					top_users.post_count DESC;
-		`,
+				SELECT
+					"userId", 
+					COUNT("Posts"."userId") post_count
+				from 
+					"Posts" 
+				GROUP BY
+					"Posts"."userId" 
+				ORDER BY 
+					post_count 
+				DESC limit $1
+			) top_users
+			LEFT JOIN
+				"Comments" c
+			ON 
+				top_users."userId" = c."userId"
+			WHERE
+				c.created_at = (
+					SELECT
+						MAX("Comments".created_at) AS max_date
+					FROM
+						"Comments"
+					WHERE
+						"Comments"."userId" = top_users."userId"
+				)) f
+				
+			LEFT JOIN
+				"Posts" p
+			ON
+				f."postId" = p.id
+			LEFT JOIN 
+				"Users" u 
+			ON 
+				f."userId" = u.id
+			ORDER BY
+				f.post_count DESC
+    `,
 			[limit],
 		);
 		return topUsersWithLatestComment;
